@@ -14,9 +14,9 @@ function App() {
     ]);
 
     let message;
-    if (title.length < 5) {
+    if (title.length < 2) {
         message = <div>Tutuł jest za krótki. Nagrywają takie filmy?</div>;
-    } else if (title.length < 15) {
+    } else if (title.length < 30) {
         message = <div>Tytuł jest ekstra, w sam raz na plakat przed kinem!</div>;
     } else {
         message = <div>Tytuł jest za długi, nikt tego nie zapamięta.</div>;
