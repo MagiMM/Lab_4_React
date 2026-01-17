@@ -5,6 +5,13 @@ import "milligram";
 
 function App() {
     const [title, setTitle] = useState('Wall-E');
+    const [year, setYear] = useState('');
+    const [movies, setMovies] = useState([
+        {title: "Wall-E", year: 2008},
+        {title: "Pulp Fiction", year: 1994},
+        {title: "Matrix", year: 1999},
+        {title: "1670", year: 2023},
+    ]);
 
     let message;
     if (title.length < 5) {
@@ -19,24 +26,32 @@ function App() {
         setTitle(event.target.value);
     }
 
-    const movies = [
-        {title: "Wall-E"},
-        {title: "Pulp Fiction"},
-        {title: "Matrix"},
-        {title: "1670"},
-    ];
+    function addMovie() {
+        const newMovie = { title: title, year: parseInt(year) || 0 };
+        setMovies([...movies, newMovie]);
+        setTitle('');
+        setYear('');
+    }
 
     return (
         <div className="container">
             <h1>My favourite movies to watch</h1>
             <h2>Titles</h2>
+
             <ul>
-                {movies.map(movie => <li key={movie.title}>{movie.title}</li>)}
+                {movies.map(movie => <li key={movie.title}>{movie.title} ({movie.year})</li>)}
             </ul>
             <h2>My favourite movie for today is {title}</h2>
             {title.length > 0 && <div>{message}</div>}
-            <input type="text" value={title} onChange={handleChange}/>
-            <button onClick={() => alert(title)}>Pokaż tytuł filmu</button>
+            <label>
+                Tytuł:
+                <input type="text" value={title} onChange={handleChange}/>
+            </label>
+            <label>
+                Rok wydania:
+                <input type="number" value={year} onChange={(e) => setYear(e.target.value)}/>
+            </label>
+            <button onClick={addMovie}>Dodaj film</button>
         </div>
     );
 }
